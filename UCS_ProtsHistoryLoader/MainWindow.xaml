@@ -1,0 +1,67 @@
+﻿<Window x:Class="UCS_ProtsHistoryLoader.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UCS_ProtsHistoryLoader"
+        xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="MainWindow" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+    <Window.DataContext>
+        <local:MainWindowViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+
+        <TextBlock Text="HDA IP:" Margin="3" Grid.Column="0" Grid.Row="0"/>
+        <TextBox Text="{Binding IpAddress}" Margin="3" Grid.Column="1" Grid.Row="0" />
+
+        <TextBlock Text="HDA Name:" Margin="3" Grid.Column="0" Grid.Row="1"/>
+        <TextBox Text="{Binding ServerName}" Margin="3" Grid.Column="1" Grid.Row="1" />
+
+        <TextBlock Text="Время начала" Margin="3" Grid.Column="0" Grid.Row="2"/>
+        <xceed:DateTimePicker x:Name="startDateTime" 
+                              Format="Custom" 
+                              FormatString="dd.MM.yyyy HH:mm:ss" 
+                              Value="{Binding StartTime}" 
+                              TimeFormat="Custom"
+                              TimeFormatString="HH:mm:ss"
+                              Grid.Row="2" 
+                              Grid.Column="1" 
+                              Margin="3" />
+
+        <TextBlock Text="Время конца))" Margin="3" Grid.Column="0" Grid.Row="3"/>
+        <xceed:DateTimePicker x:Name="endDateTime" 
+                              Format="Custom" 
+                              FormatString="dd.MM.yyyy HH:mm:ss" 
+                              Value="{Binding EndTime}" 
+                              TimeFormat="Custom"
+                              TimeFormatString="HH:mm:ss"
+                              Grid.Row="3" 
+                              Grid.Column="1" 
+                              Margin="3" />
+
+        <TextBlock Text="{Binding ConfigPath, StringFormat={}Выбранная конфигурация: {0}}" Grid.Row="4" Grid.ColumnSpan="2" Margin="3" />
+        <Button Content="Выбрать конфигурацию..." Command="{Binding LoadConfigCommand}" Grid.Row="5" Grid.ColumnSpan="2" Margin="3" />
+
+        <Button Content="RUN!" Command="{Binding RunCommand}" Grid.Row="6" Grid.ColumnSpan="2" Margin="3" />
+        
+        <ProgressBar Minimum="0" Maximum="100" Value="{Binding ProgressValue}" Grid.Row="7" Grid.ColumnSpan="2" Height="30" Margin="3" />
+        <TextBox x:Name="LogTextBox" TextWrapping="Wrap" Text="{Binding ProgressState}" TextChanged="TextBox_TextChanged" Grid.Row="8" Grid.ColumnSpan="2" Margin="3" />
+    </Grid>
+</Window>
